@@ -55,8 +55,7 @@ def test_pet_operations():
     print("Update pet response: " + update_pet.text)
 
 
-    get_pet = requests.get(f'{base_url}/pet/{pet_id}')
-    print("Get pet response: " + get_pet.text)
+
 
     schema = {
   "$schema": "http://json-schema.org/draft-04/schema#",
