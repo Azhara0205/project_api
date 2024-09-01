@@ -14,8 +14,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-      name: Checkout code
+    - name: Checkout code
+      uses: actions/checkout@v4
 
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
@@ -27,15 +27,21 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest jsonschema requests allure-pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
     - name: Lint with flake8
       run: |
-        # Stop the build if there are Python syntax errors or undefined names
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # Exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Test with pytest
+
+    - name: Run tests with pytest and generate Allure results
       run: |
         pytest pet_api_test.py --alluredir=allure-results
+
+    - name: List generated Allure result files
+      run: |
+        echo "Listing allure-results directory contents:"
+        ls -la allure-results
+
     - name: Load test report history
       uses: actions/checkout@v4
       if: always()
@@ -43,7 +49,7 @@ jobs:
         ref: gh-pages
         path: gh-pages
 
-    - name: Build test report
+    - name: Build Allure report
       uses: simple-elf/allure-report-action@v1.7
       if: always()
       with:
@@ -51,10 +57,15 @@ jobs:
         allure_history: allure-history
         allure_results: allure-results
 
-    - name: Publish test report
+    - name: List files in gh-pages after building Allure report
+      run: |
+        echo "Listing gh-pages directory contents:"
+        ls -la gh-pages
+
+    - name: Publish Allure report to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       if: always()
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_branch: gh-pages
-        publish_dir: gh-pages/allure-report
+        publish_dir: gh-pages
