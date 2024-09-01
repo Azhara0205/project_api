@@ -37,7 +37,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pytest FinalApiProject/main.py --alluredir=allure-results
+        pytest pet_api_test --alluredir=allure-results
       continue-on-error: true  
 
     - name: Load test report history
