@@ -37,7 +37,7 @@ jobs:
 
     - name: Test with pytest
       run: |
-        pytest project_api/pet_api_test.py --alluredir=allure-results
+        pytest pet_api_test.py --alluredir=allure-results
 
     - name: Load test report history
       uses: actions/checkout@v4
