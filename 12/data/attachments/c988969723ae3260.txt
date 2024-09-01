@@ -1,0 +1,3 @@
+Create pet response: {"id":123,"category":{"id":123,"name":"Fluffy Ball"},"name":"Fluffy Ball","photoUrls":["{{$randomImageUrl}}"],"tags":[{"id":123,"name":"Fluffy Ball"}],"status":"available"}
+Update pet response: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><apiResponse><type>unknown</type></apiResponse>
+Get pet response: {"id":123,"category":{"id":123,"name":"Fluffy Ball"},"name":"Fluffy Ball","photoUrls":["{{$randomImageUrl}}"],"tags":[{"id":123,"name":"Fluffy Ball"}],"status":"available"}
